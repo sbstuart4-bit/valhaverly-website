@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Request early access to Valhaverly — private governance for families sharing cottages, chalets, boats, and family compounds." />
+  <title>Early Access — Valhaverly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=3" />
+</head>
+<body class="intake-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Valhaverly</a>
+      <nav class="nav">
+        <a href="index.html#protect">What We Protect</a>
+        <a href="index.html#platform">Platform</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="early-access.html" class="btn btn-sm btn-gold">Get Early Access</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="intake-main">
+    <section class="intake-hero">
+      <div class="container intake-hero-inner">
+        <p class="eyebrow">Early Access · Ontario</p>
+        <h1>Valhaverly Early Access Intake</h1>
+        <p class="section-lead">
+          Tell us about your circle and we'll reach out when your spot opens.
+          Free to start. No credit card required.
+        </p>
+      </div>
+    </section>
+
+    <section class="intake-form-section">
+      <div class="container">
+        <form id="intake-form" class="intake-form" novalidate>
+          <div class="intake-form-grid">
+            <div class="intake-field">
+              <label for="name">Full name <span aria-hidden="true">*</span></label>
+              <input type="text" id="name" name="name" required autocomplete="name" placeholder="Alex Morgan" />
+            </div>
+
+            <div class="intake-field">
+              <label for="email">Email <span aria-hidden="true">*</span></label>
+              <input type="email" id="email" name="email" required autocomplete="email" placeholder="your@email.com" />
+              <script>
+                (function () {
+                  var key = 'valhaverly_email';
+                  var params = new URLSearchParams(window.location.search);
+                  var email = params.get('email');
+                  try {
+                    if (!email) email = sessionStorage.getItem(key) || localStorage.getItem(key);
+                  } catch (e) {}
+                  if (email) document.getElementById('email').value = email.trim();
+                })();
+              </script>
+            </div>
+
+            <div class="intake-field">
+              <label for="phone">Phone <span class="optional">(optional)</span></label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" placeholder="(555) 555-0100" />
+            </div>
+
+            <div class="intake-field">
+              <label for="assetType">What type of asset do you share? <span aria-hidden="true">*</span></label>
+              <select id="assetType" name="assetType" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="Cottage / lake house">Cottage / lake house</option>
+                <option value="Vacation home">Vacation home</option>
+                <option value="Cabin">Cabin</option>
+                <option value="Family property">Family property</option>
+                <option value="Hunting / fishing property">Hunting / fishing property</option>
+                <option value="Boat / recreational asset">Boat / recreational asset</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="intake-field intake-field--full">
+              <label for="location">General location of shared asset <span aria-hidden="true">*</span></label>
+              <input type="text" id="location" name="location" required placeholder="City, province/state, or general area" />
+            </div>
+
+            <div class="intake-field">
+              <label for="circleSize">How many people are in your circle? <span aria-hidden="true">*</span></label>
+              <select id="circleSize" name="circleSize" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="2–4">2–4</option>
+                <option value="5–7">5–7</option>
+                <option value="8–10">8–10</option>
+                <option value="11–15">11–15</option>
+                <option value="16+">16+</option>
+              </select>
+            </div>
+
+            <div class="intake-field">
+              <label for="role">What is your role? <span aria-hidden="true">*</span></label>
+              <select id="role" name="role" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="Owner">Owner</option>
+                <option value="Co-owner">Co-owner</option>
+                <option value="Family member">Family member</option>
+                <option value="Friend / guest">Friend / guest</option>
+                <option value="Property coordinator">Property coordinator</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="intake-field">
+              <label for="bookingMethod">How do people currently book time? <span aria-hidden="true">*</span></label>
+              <select id="bookingMethod" name="bookingMethod" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="Group text">Group text</option>
+                <option value="Shared calendar">Shared calendar</option>
+                <option value="Spreadsheet">Spreadsheet</option>
+                <option value="One person manages it">One person manages it</option>
+                <option value="First come, first served">First come, first served</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="intake-field">
+              <label for="contributions">Do members contribute money? <span aria-hidden="true">*</span></label>
+              <select id="contributions" name="contributions" required>
+                <option value="" disabled selected>Select one</option>
+                <option value="Yes, monthly fee">Yes, monthly fee</option>
+                <option value="Yes, per-stay contribution">Yes, per-stay contribution</option>
+                <option value="Yes, shared expenses only">Yes, shared expenses only</option>
+                <option value="No">No</option>
+                <option value="Not sure yet">Not sure yet</option>
+              </select>
+            </div>
+
+            <div class="intake-field intake-field--full">
+              <label for="biggestChallenge">Biggest challenge with the shared asset?</label>
+              <select id="biggestChallenge" name="biggestChallenge">
+                <option value="" selected>Select one</option>
+                <option value="Fair scheduling">Fair scheduling</option>
+                <option value="Payments / contributions">Payments / contributions</option>
+                <option value="Cleaning / tasks">Cleaning / tasks</option>
+                <option value="Conflict between members">Conflict between members</option>
+                <option value="Tracking usage">Tracking usage</option>
+                <option value="Owner doing all the work">Owner doing all the work</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+
+            <div class="intake-field intake-field--full">
+              <label for="notes">Anything else we should know? <span class="optional">(optional)</span></label>
+              <textarea id="notes" name="notes" rows="4" placeholder="Tell us more about your circle…"></textarea>
+            </div>
+          </div>
+
+          <p class="intake-error" id="intake-error" role="alert" hidden></p>
+
+          <div class="intake-actions">
+            <button type="submit" class="btn btn-gold" id="intake-submit">Request Early Access</button>
+            <a href="index.html" class="intake-back">← Back to home</a>
+          </div>
+
+          <p class="intake-note">
+            Valhaverly is currently inviting early families and shared-property groups to help shape the product.
+          </p>
+        </form>
+
+        <div class="intake-success" id="intake-success" hidden>
+          <div class="intake-success-icon" aria-hidden="true">◈</div>
+          <h2>You're on the list</h2>
+          <p>Thanks for reaching out. We'll be in touch soon with your early access invite.</p>
+          <a href="index.html" class="btn btn-navy">Back to home</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <p>© 2026 Himbury Innovations Inc. · Ontario, Canada · All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js?v=10"></script>
+  <script src="intake.js?v=10"></script>
+</body>
+</html>
