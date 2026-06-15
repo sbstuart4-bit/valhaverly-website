@@ -466,29 +466,21 @@ h3 {
   line-height: 1.6;
 }
 
-/* Parallax sections */
+/* Fixed background sections */
 .section--parallax {
   position: relative;
-  overflow: hidden;
   isolation: isolate;
-}
-
-.section-bg {
-  position: absolute;
-  inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  z-index: 0;
-  pointer-events: none;
 }
 
-.section-bg--reality {
+.reality.section--parallax {
   background-image: url("assets/bg-reality.png");
 }
 
-.section-bg--platform {
+.platform.section--parallax {
   background-image: url("assets/bg-platform.png");
 }
 
@@ -519,12 +511,6 @@ h3 {
 .section-inner {
   position: relative;
   z-index: 2;
-}
-
-@media (max-width: 960px) {
-  .section-bg {
-    background-attachment: scroll;
-  }
 }
 
 /* Reality */

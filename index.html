@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=12" />
 </head>
 <body>
   <header class="site-header">
@@ -45,7 +45,7 @@
           </p>
           <form class="signup-form" action="early-access.html" method="get">
             <div class="signup-row">
-              <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
+              <input type="email" id="hero-email" name="email" placeholder="your@email.com" required aria-label="Email address" />
               <button type="submit" class="btn btn-gold">Get Early Access</button>
             </div>
             <p class="signup-note">Free to start. No credit card required. Built for Ontario and Muskoka.</p>
@@ -72,7 +72,7 @@
         <div class="protect-feature">
           <img
             src="assets/childhood-collage.png"
-            alt="Family memories at the lake — fishing, boating, and summers together"
+            alt="Polaroid memories — fishing, boating, and summers at the family cabin"
             loading="lazy"
           />
           <div class="protect-feature-caption">
@@ -86,8 +86,8 @@
           <article class="protect-card">
             <div class="protect-card-img">
               <img
-                src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&h=380&fit=crop&crop=center&q=80"
-                alt="Sunrise over a calm Canadian lake with a dock"
+                src="assets/family-retreat.png"
+                alt="Multi-generational family gathered around a campfire at the lakeside cottage"
                 loading="lazy"
               />
             </div>
@@ -100,8 +100,8 @@
           <article class="protect-card">
             <div class="protect-card-img">
               <img
-                src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=600&h=380&fit=crop&crop=center&q=80"
-                alt="Family gathered around a campfire at night"
+                src="assets/shared-traditions.png"
+                alt="Family jumping off the dock at sunset on the lake"
                 loading="lazy"
               />
             </div>
@@ -114,8 +114,8 @@
           <article class="protect-card">
             <div class="protect-card-img">
               <img
-                src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600&h=380&fit=crop&crop=center&q=80"
-                alt="Sunlit forest path beside a Canadian lake"
+                src="assets/land-itself.png"
+                alt="Granite shoreline on a Canadian lake — forest, rocks, and quiet water"
                 loading="lazy"
               />
             </div>
@@ -128,8 +128,8 @@
           <article class="protect-card">
             <div class="protect-card-img">
               <img
-                src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=380&fit=crop&crop=center&q=80"
-                alt="Modern lakeside property with expansive windows"
+                src="assets/multi-generational-compound.png"
+                alt="Aerial view of lakeside cottages, docks, and boats on a shared family compound"
                 loading="lazy"
               />
             </div>
@@ -144,7 +144,6 @@
 
     <!-- The Reality -->
     <section class="section reality section--parallax">
-      <div class="section-bg section-bg--reality" aria-hidden="true"></div>
       <div class="section-overlay" aria-hidden="true"></div>
       <div class="container section-inner">
         <div class="section-header section-header--left">
@@ -207,7 +206,6 @@
 
     <!-- Platform -->
     <section id="platform" class="section platform section--parallax">
-      <div class="section-bg section-bg--platform" aria-hidden="true"></div>
       <div class="section-overlay section-overlay--light" aria-hidden="true"></div>
       <div class="container section-inner">
         <div class="platform-header">
@@ -424,7 +422,7 @@
         <p>Early access is open now for circles in Ontario and Muskoka. Free to start. No credit card. Be running before the next long weekend.</p>
         <form class="signup-form signup-form--cta" action="early-access.html" method="get">
           <div class="signup-row">
-            <input type="email" name="email" placeholder="your@email.com" required aria-label="Email address" />
+            <input type="email" id="cta-email" name="email" placeholder="your@email.com" required aria-label="Email address" />
             <button type="submit" class="btn btn-gold">Get Early Access</button>
           </div>
         </form>
@@ -472,6 +470,7 @@
     </div>
   </footer>
 
-  <script src="script.js?v=10"></script>
+  <script src="email-pass.js?v=12"></script>
+  <script src="script.js?v=12"></script>
 </body>
 </html>

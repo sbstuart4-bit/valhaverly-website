@@ -37,75 +37,44 @@ platformTabs.forEach((tab) => {
   });
 });
 
-// Carry email to intake page
-const INTAKE_EMAIL_KEY = 'valhaverly_email';
+// Email → intake page (native GET forms + link href updates)
+if (window.ValhaverlyEmail) {
+  const { save, fromPage, intakeUrl } = window.ValhaverlyEmail;
 
-function saveIntakeEmail(email) {
-  const value = email.trim();
-  if (!value) return;
-  try {
-    sessionStorage.setItem(INTAKE_EMAIL_KEY, value);
-    localStorage.setItem(INTAKE_EMAIL_KEY, value);
-  } catch (_) {}
-}
-
-function getSignupEmail() {
-  for (const input of document.querySelectorAll('.signup-form input[name="email"]')) {
-    const value = input.value.trim();
-    if (value) return value;
+  function syncEarlyAccessLinks() {
+    const href = intakeUrl();
+    document.querySelectorAll('a[href*="early-access"]').forEach((link) => {
+      link.setAttribute('href', href);
+    });
   }
-  try {
-    return sessionStorage.getItem(INTAKE_EMAIL_KEY) || localStorage.getItem(INTAKE_EMAIL_KEY) || '';
-  } catch (_) {
-    return '';
-  }
-}
 
-function earlyAccessHref(email) {
-  const value = (email || getSignupEmail()).trim();
-  return value
-    ? `early-access.html?email=${encodeURIComponent(value)}`
-    : 'early-access.html';
-}
-
-function goToIntake(email) {
-  const value = (email || getSignupEmail()).trim();
-  if (value) saveIntakeEmail(value);
-  window.location.href = earlyAccessHref(value);
-}
-
-function updateEarlyAccessLinks() {
-  const href = earlyAccessHref();
-  document.querySelectorAll('a[href*="early-access"]').forEach((link) => {
-    link.setAttribute('href', href);
+  document.querySelectorAll('.signup-form input[name="email"]').forEach((input) => {
+    ['input', 'change', 'blur'].forEach((eventName) => {
+      input.addEventListener(eventName, () => {
+        save(input.value);
+        syncEarlyAccessLinks();
+      });
+    });
   });
+
+  document.querySelectorAll('.signup-form').forEach((form) => {
+    form.addEventListener('submit', () => {
+      const email = form.querySelector('input[name="email"]')?.value.trim() || '';
+      if (email) save(email);
+      form.setAttribute('action', intakeUrl(email));
+    });
+  });
+
+  document.addEventListener('mousedown', (e) => {
+    const link = e.target.closest('a[href*="early-access"]');
+    if (!link) return;
+    const email = fromPage();
+    if (email) save(email);
+    link.setAttribute('href', intakeUrl(email));
+  }, true);
+
+  syncEarlyAccessLinks();
 }
-
-document.querySelectorAll('.signup-form input[name="email"]').forEach((input) => {
-  input.addEventListener('input', () => {
-    saveIntakeEmail(input.value);
-    updateEarlyAccessLinks();
-  });
-});
-
-document.querySelectorAll('.signup-form').forEach((form) => {
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const email = form.querySelector('input[name="email"]')?.value.trim() || '';
-    goToIntake(email);
-  });
-});
-
-document.querySelectorAll('a[href*="early-access"]').forEach((link) => {
-  link.addEventListener('click', (e) => {
-    const email = getSignupEmail();
-    if (!email) return;
-    e.preventDefault();
-    goToIntake(email);
-  });
-});
-
-updateEarlyAccessLinks();
 
 // Seamless gallery loop
 const galleryTrack = document.querySelector('.gallery-track');

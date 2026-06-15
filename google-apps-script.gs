@@ -12,10 +12,21 @@
  * 5. Copy the deployment URL into intake.js (GOOGLE_SHEET_URL)
  */
 
+function parseRequestData(e) {
+  if (e.postData && e.postData.contents) {
+    try {
+      return JSON.parse(e.postData.contents);
+    } catch (error) {
+      return e.parameter || {};
+    }
+  }
+  return e.parameter || {};
+}
+
 function doPost(e) {
   try {
     var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-    var data = JSON.parse(e.postData.contents);
+    var data = parseRequestData(e);
 
     sheet.appendRow([
       new Date(),
