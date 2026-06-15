@@ -390,7 +390,7 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center 28%;
   display: block;
 }
 
@@ -1022,6 +1022,124 @@ h3 {
   margin-bottom: 2rem;
 }
 
+/* Legal pages */
+.legal-page {
+  background: var(--color-cream);
+}
+
+.legal-main {
+  padding-top: var(--header-h);
+  min-height: 100vh;
+}
+
+.legal-hero {
+  padding: clamp(3rem, 8vw, 4.5rem) 0 2rem;
+  background: var(--color-navy-deep);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.legal-hero .eyebrow {
+  color: var(--color-teal-muted);
+}
+
+.legal-hero h1 {
+  color: var(--color-white);
+  margin-bottom: 0.5rem;
+}
+
+.legal-hero .section-lead {
+  color: rgba(255, 255, 255, 0.7);
+  max-width: 52ch;
+}
+
+.legal-effective {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.55);
+  margin: 0;
+}
+
+.legal-body {
+  padding: clamp(2.5rem, 6vw, 4rem) 0 clamp(4rem, 8vw, 6rem);
+}
+
+.legal-content {
+  max-width: 720px;
+  margin-inline: auto;
+  background: var(--color-white);
+  border: 1px solid var(--color-cream-dark);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.75rem, 4vw, 2.5rem);
+  box-shadow: 0 8px 40px rgba(26, 34, 56, 0.06);
+}
+
+.legal-content h2 {
+  font-size: 1.25rem;
+  color: var(--color-navy);
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+
+.legal-content h2:first-child {
+  margin-top: 0;
+}
+
+.legal-content p {
+  color: var(--color-ink-soft);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+
+.legal-content ul {
+  margin: 0 0 1rem 1.25rem;
+  padding-left: 0.5rem;
+  color: var(--color-ink-soft);
+  line-height: 1.65;
+}
+
+.legal-content li {
+  margin-bottom: 0.35rem;
+}
+
+.legal-content a {
+  color: var(--color-teal);
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.legal-content a:hover {
+  color: var(--color-navy);
+}
+
+.legal-back {
+  margin-top: 2.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-cream-dark);
+  margin-bottom: 0;
+}
+
+.legal-back a {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--color-ink-soft);
+}
+
+.legal-back a:hover {
+  color: var(--color-navy);
+}
+
+.contact-block {
+  margin-top: 1.75rem;
+}
+
+.contact-block h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+}
+
+.contact-block p {
+  margin-bottom: 0;
+}
+
 /* Intake page */
 .intake-page {
   background: var(--color-cream);
@@ -1033,9 +1151,21 @@ h3 {
 }
 
 .intake-hero {
+  position: relative;
   padding: clamp(3rem, 8vw, 5rem) 0 2rem;
-  background: var(--color-navy-deep);
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(18, 26, 46, 0.72) 0%,
+      rgba(18, 26, 46, 0.88) 100%
+    ),
+    url('assets/bg-intake.png') center / cover no-repeat;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.intake-hero-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .intake-hero .eyebrow {
