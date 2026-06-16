@@ -1,5 +1,5 @@
 /**
- * Valhaverly Early Access — Google Sheets intake
+ * Valhaverly Early Access — Google Sheets intake (server-side only)
  *
  * SETUP:
  * 1. Create a new Google Sheet named "Valhaverly Early Access Intake"
@@ -9,7 +9,8 @@
  * 4. Deploy → New deployment → Web app
  *    - Execute as: Me
  *    - Who has access: Anyone
- * 5. Copy the deployment URL into intake.js (GOOGLE_SHEET_URL)
+ * 5. Add the deployment URL as INTAKE_SHEET_URL in Vercel (Environment Variables)
+ *    — never expose this URL in client-side code
  */
 
 function parseRequestData(e) {

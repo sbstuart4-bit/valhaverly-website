@@ -1,6 +1,3 @@
-// Replace with your deployed Google Apps Script web app URL (see google-apps-script.gs)
-const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzCcmNgxR42uYkJVPP-TDpJNHuyo_MxMyjwehg5xKLUgnItemCUbBR7uZdTgDG3TH6D/exec';
-
 function showIntakeSuccess() {
   intakeForm.hidden = true;
   intakeSuccess.hidden = false;
@@ -33,22 +30,25 @@ if (intakeForm) {
 
     const data = Object.fromEntries(new FormData(intakeForm));
 
-    if (!GOOGLE_SHEET_URL || GOOGLE_SHEET_URL === 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-      intakeError.textContent = 'Form is not connected yet. Add your Google Apps Script URL in intake.js.';
-      intakeError.hidden = false;
-      return;
-    }
-
     intakeSubmit.disabled = true;
     intakeSubmit.textContent = 'Submitting…';
 
     try {
-      await fetch(GOOGLE_SHEET_URL, {
+      const res = await fetch('/api/intake', {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
+
+      const result = await res.json();
+
+      if (!res.ok || !result.success) {
+        intakeError.textContent =
+          result.error || 'Something went wrong. Please try again or email hello@valhaverly.com.';
+        intakeError.hidden = false;
+        resetIntakeSubmit();
+        return;
+      }
 
       showIntakeSuccess();
     } catch {
