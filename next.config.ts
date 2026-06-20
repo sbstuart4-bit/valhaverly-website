@@ -5,6 +5,7 @@ const htmlPages = [
   'contact',
   'privacy',
   'terms',
+  'demo',
   'hero-mockup',
   'agent-login',
   'agent-partners',

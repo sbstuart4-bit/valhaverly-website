@@ -60,22 +60,25 @@
 
 .ap-hero h1 {
   font-size: clamp(2.25rem, 5vw, 3.5rem);
-  margin-bottom: 1rem;
-}
-
-.ap-hero-sub {
-  font-family: var(--font-serif);
-  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
-  color: rgba(255, 255, 255, 0.88);
-  line-height: 1.45;
+  max-width: none;
+  line-height: 1.12;
   margin-bottom: 1.25rem;
 }
 
+.ap-hero-sub {
+  font-family: var(--font-sans);
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  line-height: 1.55;
+  margin-bottom: 1rem;
+}
+
 .ap-hero-copy {
-  font-size: 1rem;
+  font-size: 0.975rem;
   color: rgba(255, 255, 255, 0.72);
-  line-height: 1.65;
-  max-width: 52ch;
+  line-height: 1.7;
+  max-width: 54ch;
   margin-bottom: 2rem;
 }
 

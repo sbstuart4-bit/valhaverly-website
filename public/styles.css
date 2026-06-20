@@ -236,6 +236,15 @@ h3 {
   color: var(--color-white);
 }
 
+.nav a.nav-demo {
+  color: var(--color-gold);
+  font-weight: 600;
+}
+
+.nav a.nav-demo:hover {
+  color: var(--color-gold-hover);
+}
+
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -261,7 +270,7 @@ h3 {
   min-height: 100dvh;
   display: flex;
   align-items: center;
-  padding: calc(var(--header-h) + 2rem) 0 4rem;
+  padding: var(--header-h) 0 5rem;
   background: var(--color-navy-deep);
 }
 
@@ -275,7 +284,7 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 35%;
+  object-position: 62% 35%;
 }
 
 .hero-overlay {
@@ -284,13 +293,15 @@ h3 {
   z-index: 1;
   background:
     linear-gradient(
-      105deg,
-      rgba(18, 26, 46, 0.94) 0%,
-      rgba(18, 26, 46, 0.82) 42%,
-      rgba(18, 26, 46, 0.45) 72%,
-      rgba(18, 26, 46, 0.25) 100%
+      90deg,
+      rgba(18, 26, 46, 0.97) 0%,
+      rgba(18, 26, 46, 0.93) 22%,
+      rgba(18, 26, 46, 0.78) 42%,
+      rgba(18, 26, 46, 0.48) 62%,
+      rgba(18, 26, 46, 0.22) 82%,
+      rgba(18, 26, 46, 0.1) 100%
     ),
-    linear-gradient(to top, rgba(18, 26, 46, 0.7) 0%, transparent 40%);
+    linear-gradient(to top, rgba(18, 26, 46, 0.55) 0%, transparent 38%);
 }
 
 .hero-grid {
@@ -298,42 +309,90 @@ h3 {
   inset: 0;
   z-index: 2;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 48px 48px;
   pointer-events: none;
+  mask-image: linear-gradient(90deg, rgba(0, 0, 0, 0.85) 0%, transparent 70%);
 }
 
 .hero-inner {
   position: relative;
   z-index: 3;
-  max-width: 640px;
+  width: 100%;
+  padding-left: clamp(1.5rem, 13vw, 14vw);
+  padding-right: clamp(1.5rem, 4vw, 3rem);
 }
 
 .hero-content {
+  max-width: 850px;
   min-width: 0;
+  text-align: left;
 }
 
 .hero .eyebrow {
   color: var(--color-teal-muted);
+  margin-bottom: 1.35rem;
+}
+
+.hero h1 {
+  max-width: 780px;
+  font-size: clamp(3rem, 5.8vw, 5.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.02em;
 }
 
 .hero-lead {
-  font-size: clamp(1rem, 2vw, 1.15rem);
-  color: rgba(255, 255, 255, 0.78);
-  max-width: 52ch;
-  margin-top: 1.25rem;
+  font-size: clamp(1.05rem, 1.45vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 700px;
+  margin-top: 1.75rem;
+  line-height: 1.65;
+}
+
+.signup-form--hero {
+  margin-top: 2.5rem;
+  max-width: 620px;
+  width: 100%;
+}
+
+.signup-form--hero .signup-row {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  max-width: 620px;
+  gap: 0.75rem;
+}
+
+.signup-form--hero .signup-row input[type="email"] {
+  flex: 1;
+  min-width: 0;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.signup-form--hero .signup-row input[type="email"]:focus {
+  background: rgba(255, 255, 255, 0.11);
+  border-color: rgba(90, 154, 154, 0.6);
+}
+
+.signup-form--hero .signup-note {
+  margin-top: 1rem;
+  font-size: 0.85rem;
 }
 
 .scroll-hint {
   position: absolute;
-  bottom: 1.5rem;
+  bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.4);
-  letter-spacing: 0.05em;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.38);
+  letter-spacing: 0.06em;
 }
 
 /* Sections */
@@ -1432,20 +1491,11 @@ h3 {
   }
 
   .hero-inner {
-    max-width: none;
-    text-align: center;
+    padding-left: clamp(1.25rem, 6vw, 3rem);
   }
 
-  .signup-form {
-    margin-inline: auto;
-  }
-
-  h1 {
-    margin-inline: auto;
-  }
-
-  .hero-lead {
-    margin-inline: auto;
+  .hero h1 {
+    font-size: clamp(2.75rem, 7vw, 4.25rem);
   }
 
   .protect-cards {
@@ -1476,6 +1526,18 @@ h3 {
 @media (max-width: 720px) {
   .signup-row {
     flex-direction: column;
+  }
+
+  .signup-form--hero .signup-row {
+    gap: 0.75rem;
+  }
+
+  .signup-form--hero .signup-row input[type="email"] {
+    width: 100%;
+  }
+
+  .signup-form--hero .signup-row .btn {
+    width: 100%;
   }
 
   .signup-form--cta .signup-row input[type="email"] {

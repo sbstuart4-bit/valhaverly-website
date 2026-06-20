@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="See Valhaverly in action — interactive product demo covering fair booking, shared expenses, and family legacy preservation." />
+  <title>Product Demo — Valhaverly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css?v=15" />
+  <link rel="stylesheet" href="demo.css?v=2" />
+</head>
+<body class="demo-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo">Valhaverly</a>
+      <nav class="nav">
+        <a href="index.html#protect">What We Protect</a>
+        <a href="index.html#platform">Platform</a>
+        <a href="index.html#pricing">Pricing</a>
+        <a href="demo.html" class="nav-demo">Demo</a>
+        <a href="agent-partners.html">Agent Partners</a>
+        <a href="early-access.html" class="btn btn-sm btn-gold">Get Early Access</a>
+      </nav>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main class="demo-main">
+    <!-- Hero -->
+    <section class="demo-hero">
+      <div class="demo-hero-bg">
+        <img
+          src="https://images.unsplash.com/photo-1727986920536-e21345a9a960?w=1920&h=1080&fit=crop&q=85"
+          alt="Friends jumping off a cottage dock into the lake"
+        />
+      </div>
+      <div class="demo-hero-overlay"></div>
+      <div class="demo-hero-grid"></div>
+      <div class="container demo-hero-inner">
+        <p class="eyebrow">Interactive Product Demo · Supademo</p>
+        <h1>See Valhaverly <em>In Action.</em></h1>
+        <p class="demo-hero-lead">
+          Six chapters. One family. The complete journey from chaos to clarity — from the first
+          booking fight to a legacy that lasts.
+        </p>
+        <div class="demo-hero-actions">
+          <button type="button" class="btn btn-gold btn-play" data-demo="full" data-demo-title="Full Story — All 6 Chapters">
+            Watch the Full Story
+          </button>
+        </div>
+        <p class="demo-hero-note">All 6 chapters · ~4 minutes · No sign-in required</p>
+      </div>
+    </section>
+
+    <!-- Choose Your Journey -->
+    <section class="section demo-journeys" id="journeys">
+      <div class="container">
+        <div class="section-header">
+          <p class="eyebrow">Choose Your Journey</p>
+          <h2>Four ways to explore the product.</h2>
+        </div>
+
+        <div class="demo-journey-grid">
+          <article class="demo-journey-card">
+            <div class="demo-journey-icon" aria-hidden="true">🏡</div>
+            <span class="demo-journey-chapters">Ch. 1 + 2</span>
+            <h3>Owner Journey</h3>
+            <p>Follow Paul as he creates his circle, sets governance rules, and invites his family — in under 20 minutes.</p>
+            <button type="button" class="demo-journey-link" data-demo="owner" data-demo-title="Owner Journey — Chapters 1–2">
+              Watch Chapters 1–2
+            </button>
+          </article>
+
+          <article class="demo-journey-card">
+            <div class="demo-journey-icon" aria-hidden="true">👥</div>
+            <span class="demo-journey-chapters">Ch. 3 + 4</span>
+            <h3>Family Member Journey</h3>
+            <p>Sarah and James experience fair booking — tokens, scores, wave priority — without a single argument.</p>
+            <button type="button" class="demo-journey-link" data-demo="member" data-demo-title="Family Member Journey — Chapters 3–4">
+              Watch Chapters 3–4
+            </button>
+          </article>
+
+          <article class="demo-journey-card">
+            <div class="demo-journey-icon" aria-hidden="true">💳</div>
+            <span class="demo-journey-chapters">Ch. 5</span>
+            <h3>Shared Expenses</h3>
+            <p>Stay contributions, monthly fees, and shared costs flow through Stripe. The ledger is always honest.</p>
+            <button type="button" class="demo-journey-link" data-demo="expenses" data-demo-title="Shared Expenses — Chapter 5">
+              Watch Chapter 5
+            </button>
+          </article>
+
+          <article class="demo-journey-card">
+            <div class="demo-journey-icon" aria-hidden="true">🌲</div>
+            <span class="demo-journey-chapters">Ch. 6</span>
+            <h3>Legacy Preservation</h3>
+            <p>Decades of family history, across generations. Valhaverly preserves what the spreadsheet never could.</p>
+            <button type="button" class="demo-journey-link" data-demo="legacy" data-demo-title="Legacy Preservation — Chapter 6">
+              Watch Chapter 6
+            </button>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Complete Narrative -->
+    <section class="section demo-narrative" id="narrative">
+      <div class="container">
+        <div class="section-header">
+          <p class="eyebrow">The Complete Narrative</p>
+          <h2>Six chapters. One family. Zero arguments.</h2>
+          <p class="section-lead">
+            The recommended story flow — designed to take a prospect from recognition to conviction in under five minutes.
+          </p>
+        </div>
+
+        <div class="demo-chapters">
+          <article class="demo-chapter">
+            <span class="demo-chapter-num">01</span>
+            <h3>Meet Paul</h3>
+            <p class="demo-chapter-meta">Owns the family lake house — Dossey, Muskoka</p>
+            <ul>
+              <li>Family scheduling is chaotic every spring</li>
+              <li>Creates a Valhaverly Circle in 20 minutes</li>
+            </ul>
+            <p class="demo-chapter-quote">"Every owner knows this feeling. Valhaverly gives Paul his weekends back."</p>
+          </article>
+
+          <article class="demo-chapter">
+            <span class="demo-chapter-num">02</span>
+            <h3>Add Family Members</h3>
+            <p class="demo-chapter-meta">Sarah, James, Claire, and Emily join the circle</p>
+            <ul>
+              <li>Everyone starts at Fairness Score 50</li>
+              <li>Token allocation: 2 prime · 1 holiday each</li>
+            </ul>
+            <p class="demo-chapter-quote">"A clean slate. No history. No politics. Just five people who love the same place."</p>
+          </article>
+
+          <article class="demo-chapter">
+            <span class="demo-chapter-num">03</span>
+            <h3>Sarah Requests July Long Weekend</h3>
+            <p class="demo-chapter-meta">Prime weekend booking — 1 token consumed</p>
+            <ul>
+              <li>Fairness score adjusts automatically: 50 → 33</li>
+              <li>James, Claire, Emily see the calendar update instantly</li>
+            </ul>
+            <p class="demo-chapter-quote">"She didn't have to ask anyone. The system said yes — and recorded it fairly."</p>
+          </article>
+
+          <article class="demo-chapter">
+            <span class="demo-chapter-num">04</span>
+            <h3>James Requests August Week</h3>
+            <p class="demo-chapter-meta">James's score is 50 — higher than Sarah's 33</p>
+            <ul>
+              <li>Wave 1 priority: James books first next season</li>
+              <li>Conflict never happens — the system handled it</li>
+            </ul>
+            <p class="demo-chapter-quote">"James didn't fight for it. He earned it by not going first last time."</p>
+          </article>
+
+          <article class="demo-chapter">
+            <span class="demo-chapter-num">05</span>
+            <h3>Contributions &amp; Shared Expenses</h3>
+            <p class="demo-chapter-meta">Stay contribution payment via Stripe</p>
+            <ul>
+              <li>Circle wallet ledger updates in real time</li>
+              <li>Every member sees exactly what they owe and why</li>
+            </ul>
+            <p class="demo-chapter-quote">"The awkward money conversation — solved. Permanently."</p>
+          </article>
+
+          <article class="demo-chapter">
+            <span class="demo-chapter-num">06</span>
+            <h3>Legacy &amp; Stewardship</h3>
+            <p class="demo-chapter-meta">Years of family history preserved in one place</p>
+            <ul>
+              <li>Multiple generations — scores, stays, contributions</li>
+              <li>Traditions documented, not just remembered</li>
+            </ul>
+            <p class="demo-chapter-quote">"Dossey Lake House. Est. 1987. Valhaverly is how it makes it to 2087."</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quote CTA -->
+    <section class="section demo-quote-section">
+      <div class="container">
+        <div class="demo-quote-block">
+          <p class="eyebrow">The Most Important Demo</p>
+          <blockquote>
+            "Valhaverly isn't about booking property.<br />
+            It's about protecting the experiences<br />
+            <em>families want to pass on.</em>"
+          </blockquote>
+          <p class="demo-quote-sub">
+            Every shared property eventually faces the conversation. Valhaverly makes sure it never has to.
+          </p>
+          <div class="demo-quote-actions">
+            <button type="button" class="btn btn-gold btn-play" data-demo="full" data-demo-title="Full Story — All 6 Chapters">
+              Watch Full Demo
+            </button>
+            <a href="early-access.html" class="btn btn-navy">Get Early Access →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Demo embed modal -->
+  <div class="demo-modal" id="demo-modal" aria-hidden="true" role="dialog" aria-labelledby="demo-modal-title">
+    <div class="demo-modal-panel">
+      <div class="demo-modal-header">
+        <h2 class="demo-modal-title" id="demo-modal-title">Product Demo</h2>
+        <button type="button" class="demo-modal-close" id="demo-modal-close" aria-label="Close demo">&times;</button>
+      </div>
+      <div class="demo-modal-body">
+        <iframe id="demo-iframe" title="Valhaverly product demo" hidden></iframe>
+        <div class="demo-modal-placeholder" id="demo-placeholder">
+          <div class="demo-modal-placeholder-icon" aria-hidden="true">▶</div>
+          <p>Demo embed coming soon.</p>
+          <p>Add Supademo URLs to <code>public/demo.js → DEMO_URLS</code> to activate interactive walkthroughs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="logo footer-logo">◈ Valhaverly</span>
+          <p class="footer-tagline">The operating system for shared lifestyle assets. Built for the families who love these places enough to protect them.</p>
+        </div>
+        <nav class="footer-nav">
+          <div class="footer-col">
+            <h5>Product</h5>
+            <a href="index.html#getting-started">How It Works</a>
+            <a href="demo.html">Product Demo</a>
+            <a href="index.html#platform">Features</a>
+            <a href="index.html#pricing">Pricing</a>
+          </div>
+          <div class="footer-col">
+            <h5>Company</h5>
+            <a href="privacy.html">Privacy Policy</a>
+            <a href="terms.html">Terms of Use</a>
+            <a href="contact.html">Contact Us</a>
+            <a href="agent-partners.html">Agent Partners</a>
+          </div>
+          <div class="footer-col">
+            <h5>Get Started</h5>
+            <a href="early-access.html">Early Access</a>
+            <a href="early-access.html">Circle Setup</a>
+            <a href="/agent-login">Partner Login</a>
+          </div>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 Himbury Innovations Inc. · Ontario, Canada · All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js?v=15"></script>
+  <script src="demo.js?v=1"></script>
+</body>
+</html>

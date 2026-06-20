@@ -28,6 +28,7 @@
       height: 100%;
       font-family: var(--sans);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     body {
@@ -35,6 +36,7 @@
       background: #f5f3ee;
       color: var(--navy);
       min-height: 100vh;
+      width: 100%;
     }
 
     /* ── Sidebar (shared) ── */
@@ -193,12 +195,23 @@
     }
 
     /* ── Main content ── */
-    .main { flex: 1; margin-left: var(--sidebar-w); min-height: 100vh; display: flex; flex-direction: column; }
+    .main {
+      flex: 1;
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+      min-width: 0;
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
 
     .main-inner {
       flex: 1;
-      padding: 2rem 2.25rem 3rem;
+      width: 100%;
       max-width: 720px;
+      min-width: 0;
+      padding: 2rem 2.25rem 3rem;
     }
 
     .page-header { margin-bottom: 2rem; }
@@ -212,7 +225,12 @@
       margin-bottom: 0.4rem;
     }
 
-    .page-title { font-family: var(--serif); font-size: 2rem; color: var(--navy); line-height: 1.15; }
+    .page-title {
+      font-family: var(--serif);
+      font-size: clamp(1.5rem, 7vw, 2rem);
+      color: var(--navy);
+      line-height: 1.15;
+    }
 
     /* ── Settings cards ── */
     .settings-card {
@@ -246,7 +264,10 @@
 
     .settings-card-title { font-family: var(--serif); font-size: 1.1rem; color: var(--navy); }
 
-    .settings-card-body { padding: 1.5rem; }
+    .settings-card-body {
+      padding: 1.5rem;
+      min-width: 0;
+    }
 
     /* Form fields */
     .form-row {
@@ -332,27 +353,42 @@
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
+      gap: 1rem;
       padding: 0.85rem 0;
       border-bottom: 1px solid #f0ede7;
+      min-width: 0;
     }
 
     .info-row:last-child { border-bottom: none; }
 
     .info-row-label {
+      flex: 0 0 auto;
       font-size: 0.8rem;
       color: var(--ink-soft);
       font-weight: 500;
+      line-height: 1.4;
     }
 
     .info-row-value {
+      flex: 1;
+      min-width: 0;
       font-size: 0.875rem;
       color: var(--navy);
       font-weight: 500;
       text-align: right;
+      line-height: 1.45;
+      word-break: break-word;
+    }
+
+    .info-row-value--link {
+      font-size: 0.8rem;
+      color: var(--teal);
+      word-break: break-all;
     }
 
     .code-chip {
       display: inline-block;
+      max-width: 100%;
       font-size: 0.775rem;
       font-weight: 600;
       letter-spacing: 0.06em;
@@ -361,6 +397,20 @@
       padding: 0.2rem 0.65rem;
       border-radius: 6px;
       color: var(--navy);
+      word-break: break-all;
+      white-space: normal;
+      line-height: 1.4;
+    }
+
+    .account-badge {
+      display: inline-block;
+      background: rgba(240, 180, 41, 0.12);
+      color: #b07d10;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.65rem;
+      border-radius: 5px;
+      white-space: nowrap;
     }
 
     /* Danger zone */
@@ -407,9 +457,33 @@
       .sidebar.open { transform: translateX(0); }
       .sidebar-overlay.open { display: block; }
       .mobile-topbar { display: flex; }
-      .main { margin-left: 0; padding-top: 56px; }
-      .main-inner { padding: 1.5rem 1rem 2.5rem; }
+      .main {
+        margin-left: 0;
+        padding-top: 56px;
+        width: 100%;
+        max-width: 100vw;
+      }
+      .main-inner { padding: 1.25rem 1rem 2.5rem; }
       .form-row { grid-template-columns: 1fr; }
+      .settings-card-body { padding: 1.25rem 1rem; }
+      .settings-card-header { padding: 1rem 1rem; }
+      .form-actions {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .btn-save { width: 100%; }
+    }
+
+    @media (max-width: 540px) {
+      .info-row {
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+
+      .info-row-value {
+        text-align: left;
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -548,7 +622,7 @@
           </div>
           <div class="info-row">
             <span class="info-row-label">Referral Link</span>
-            <span class="info-row-value" style="font-size:0.8rem;color:var(--teal)" id="infoRefLink">—</span>
+            <span class="info-row-value info-row-value--link" id="infoRefLink">—</span>
           </div>
           <div class="info-row">
             <span class="info-row-label">Partner Since</span>
@@ -557,7 +631,7 @@
           <div class="info-row">
             <span class="info-row-label">Account Type</span>
             <span class="info-row-value">
-              <span style="background:rgba(240,180,41,0.12);color:#b07d10;font-size:0.72rem;font-weight:600;padding:0.2rem 0.65rem;border-radius:5px;">Agent Partner</span>
+              <span class="account-badge">Agent Partner</span>
             </span>
           </div>
         </div>
@@ -603,6 +677,11 @@
       renderPage();
     });
 
+    function shortenJoinDate(dateStr) {
+      if (!dateStr || dateStr === 'Partner') return '—';
+      return dateStr.replace(/^(\w{3})\w*\s/, '$1 ');
+    }
+
     function renderPage() {
       // Sidebar
       document.getElementById('sidebarInitials').textContent = agent.initials;
@@ -619,7 +698,7 @@
       document.getElementById('infoAgentId').textContent = agent.id;
       document.getElementById('infoRefCode').textContent = agent.referralCode;
       document.getElementById('infoRefLink').textContent = agent.referralUrl || AgentAuth.getReferralLink(agent);
-      document.getElementById('infoJoinDate').textContent = agent.joinDate;
+      document.getElementById('infoJoinDate').textContent = shortenJoinDate(agent.joinDate);
     }
 
     function saveProfile(e) {
