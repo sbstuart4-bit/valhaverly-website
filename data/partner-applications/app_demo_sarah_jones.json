@@ -1,0 +1,75 @@
+{
+  "id": "app_demo_sarah_jones",
+  "status": "Approved",
+  "passwordHash": "a898fd09ff8c8625aeb6980fac0f2060557690e16db7cbbb2f63e9c38630ecd8",
+  "personal": {
+    "firstName": "Sarah",
+    "lastName": "Jones",
+    "email": "sarah.jones@valhaverly.com",
+    "phone": "+1 (705) 555-0101",
+    "linkedIn": "https://linkedin.com/in/sarahjones"
+  },
+  "professional": {
+    "brokerageName": "Muskoka Legacy Realty",
+    "licenseNumber": "ON-4829103",
+    "provinceState": "Ontario",
+    "primaryMarket": "Muskoka",
+    "specialties": [
+      "Cottage Properties",
+      "Lake Houses",
+      "Vacation Homes"
+    ],
+    "yearsInRealEstate": "12",
+    "annualTransactions": "16–30"
+  },
+  "market": {
+    "primaryRegion": "Muskoka",
+    "secondaryRegions": "Haliburton, Kawartha Lakes",
+    "serviceRadius": "120 km"
+  },
+  "partnerFit": {
+    "interestReason": "My clients often purchase cottages for multi-generational use and need stewardship guidance after closing.",
+    "postClosingSupport": "I provide seasonal checklists, local vendor introductions, and family ownership planning resources.",
+    "recreationalPropertiesAnnually": "8–12"
+  },
+  "verification": {},
+  "agreement": {
+    "acceptedTerms": true,
+    "acceptedPrivacy": true,
+    "certifiedAccurate": true,
+    "acceptedAt": "2026-06-19T19:03:45.667Z"
+  },
+  "partnerProfile": {
+    "partnerId": "VAL-0001",
+    "referralCode": "SJONES001",
+    "referralUrl": "https://valhaverly.com/agent/SJONES001"
+  },
+  "auditTrail": [
+    {
+      "action": "Application created",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "applicant"
+    },
+    {
+      "action": "Application submitted",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "applicant"
+    },
+    {
+      "action": "Application under review",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "admin"
+    },
+    {
+      "action": "Application approved — VAL-0001",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "admin"
+    }
+  ],
+  "applicationDate": "2025-11-12",
+  "emailVerified": true,
+  "createdAt": "2025-11-10T14:00:00.000Z",
+  "updatedAt": "2026-06-19T19:03:45.667Z",
+  "submittedAt": "2025-11-12T09:30:00.000Z",
+  "reviewedAt": "2025-11-14T16:00:00.000Z"
+}

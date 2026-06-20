@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner Login — Valhaverly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=15" />
+  <link rel="stylesheet" href="/partner-onboarding.css?v=3" />
+</head>
+<body class="po-login-page">
+  <div class="po-login-card">
+    <div class="po-login-wordmark">
+      <div class="po-login-logo">
+        <span class="po-login-logo-icon" aria-hidden="true">◈</span>
+        <span class="po-login-logo-text">Valhaverly</span>
+      </div>
+      <span class="po-login-badge">Steward Partner Portal</span>
+      <p class="po-login-sub">Sign in to your referral dashboard, track commissions, and access partner resources.</p>
+    </div>
+
+    <form id="login-form" class="po-login-form" novalidate>
+      <div class="po-field">
+        <label for="email">Email address</label>
+        <input id="email" name="email" type="email" required autocomplete="email" placeholder="you@brokerage.com" />
+      </div>
+      <div class="po-field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required autocomplete="current-password" placeholder="Your portal password" />
+      </div>
+      <div class="po-login-options">
+        <label class="po-login-remember"><input type="checkbox" id="rememberMe" /> Remember me</label>
+        <a href="/contact.html" class="po-login-forgot">Forgot password?</a>
+      </div>
+      <p class="po-login-error" id="login-error" role="alert" hidden></p>
+      <button type="submit" class="btn btn-gold po-login-submit" id="login-btn">Sign In to Partner Portal</button>
+      <a href="/agent-partners/apply" class="po-login-apply-link">Apply to become a partner</a>
+    </form>
+
+    <div class="po-demo-box">
+      <p class="po-demo-title">Demo accounts</p>
+      <p class="po-demo-password">Password for all: <code>Partner2025!</code></p>
+      <ul class="po-demo-list">
+        <li><span class="po-demo-status po-demo-status--approved">Approved</span> sarah.jones@valhaverly.com</li>
+        <li><span class="po-demo-status po-demo-status--approved">Approved</span> michael.reid@valhaverly.com</li>
+        <li><span class="po-demo-status po-demo-status--pending">Pending</span> amanda.chen@valhaverly.com</li>
+        <li><span class="po-demo-status po-demo-status--rejected">Rejected</span> david.miller@valhaverly.com</li>
+      </ul>
+    </div>
+
+    <p class="po-login-footer"><a href="/index.html">← Back to valhaverly.com</a></p>
+  </div>
+
+  <script src="/partner-auth.js?v=2"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      try {
+        var session = await PartnerAuth.getSession();
+        if (session.authenticated) {
+          PartnerAuth.redirectByStatus(session.session.status);
+          return;
+        }
+      } catch (_) {}
+
+      var params = new URLSearchParams(location.search);
+      if (params.get('error') === 'suspended') {
+        showError('Your partner account has been suspended. Contact support.');
+      }
+
+      document.getElementById('login-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var email = document.getElementById('email').value.trim();
+        var password = document.getElementById('password').value;
+        if (!email || !password) {
+          showError('Please enter your email and password.');
+          return;
+        }
+        var rememberMe = document.getElementById('rememberMe').checked;
+        var btn = document.getElementById('login-btn');
+        btn.disabled = true;
+        btn.textContent = 'Signing in…';
+        hideError();
+        try {
+          var data = await PartnerAuth.login(email, password, rememberMe);
+          window.location.href = data.redirect || '/agent-portal/referrals';
+        } catch (err) {
+          showError(err.message || 'Sign in failed. Please try again.');
+          btn.disabled = false;
+          btn.textContent = 'Sign In to Partner Portal';
+        }
+      });
+    });
+
+    function showError(msg) {
+      var el = document.getElementById('login-error');
+      el.textContent = msg;
+      el.hidden = false;
+    }
+    function hideError() {
+      document.getElementById('login-error').hidden = true;
+    }
+  </script>
+</body>
+</html>

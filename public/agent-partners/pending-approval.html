@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Under Review · Valhaverly</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=14" />
+  <link rel="stylesheet" href="/partner-onboarding.css?v=3" />
+</head>
+<body class="po-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="logo">Valhaverly</a>
+      <nav class="nav"><a href="/agent-login">Partner Login</a></nav>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+  <main class="po-main">
+    <div class="po-status-page">
+      <div class="po-status-card" id="status-card">
+        <div class="po-status-icon po-status-icon--amber" aria-hidden="true">⏳</div>
+        <span class="po-status-badge po-status-badge--pending" id="status-badge">Under Review</span>
+        <h1 id="status-title">Application Under Review</h1>
+        <p id="status-message">Your Steward Partner application is being reviewed by our team. We'll notify you by email once a decision has been made.</p>
+        <div class="po-status-meta">
+          <div class="po-status-row"><span>Applicant</span><span id="applicant-name">—</span></div>
+          <div class="po-status-row"><span>Application Date</span><span id="app-date">—</span></div>
+          <div class="po-status-row"><span>Current Status</span><span id="app-status">Under Review</span></div>
+          <div class="po-status-row"><span>Expected Review</span><span>2–5 business days</span></div>
+        </div>
+        <div class="po-status-actions">
+          <a href="/contact.html" class="btn btn-gold">Contact Support</a>
+          <button type="button" class="btn-outline-navy" onclick="PartnerAuth.logout()">Sign Out</button>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/script.js?v=14"></script>
+  <script src="/partner-auth.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      var session = await PartnerAuth.requireAuthenticated();
+      if (!session) return;
+
+      var status = session.session.status;
+      var rejected = new URLSearchParams(location.search).get('status') === 'rejected' || status === 'Rejected';
+
+      if (status === 'Approved') {
+        window.location.replace('/agent-partners/approved');
+        return;
+      }
+
+      if (rejected) {
+        document.getElementById('status-badge').textContent = 'Not Approved';
+        document.getElementById('status-badge').className = 'po-status-badge po-status-badge--rejected';
+        document.getElementById('status-title').textContent = 'Application Not Approved';
+        document.getElementById('status-message').textContent =
+          'Thank you for your interest in the Steward Partner Program. After review, we are unable to approve your application at this time. You may contact support for more information.';
+        document.getElementById('app-status').textContent = 'Rejected';
+        document.querySelector('.po-status-icon').className = 'po-status-icon po-status-icon--red';
+      }
+
+      if (session.application) {
+        var app = session.application;
+        if (app.personal) {
+          document.getElementById('applicant-name').textContent =
+            app.personal.firstName + ' ' + app.personal.lastName;
+        }
+        if (app.applicationDate || app.submittedAt) {
+          document.getElementById('app-date').textContent = new Date(app.applicationDate || app.submittedAt)
+            .toLocaleDateString('en-CA', { dateStyle: 'long' });
+        }
+        if (!rejected) document.getElementById('app-status').textContent = status;
+      }
+    });
+  </script>
+</body>
+</html>

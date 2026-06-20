@@ -1,0 +1,46 @@
+{
+  "id": "app_f6d12de23cdd286e5e080837",
+  "status": "Draft",
+  "personal": {
+    "firstName": "",
+    "lastName": "",
+    "email": "",
+    "phone": "",
+    "linkedIn": ""
+  },
+  "professional": {
+    "brokerageName": "",
+    "licenseNumber": "",
+    "provinceState": "",
+    "primaryMarket": "",
+    "specialties": [],
+    "yearsInRealEstate": "",
+    "annualTransactions": ""
+  },
+  "market": {
+    "primaryRegion": "",
+    "secondaryRegions": "",
+    "serviceRadius": ""
+  },
+  "partnerFit": {
+    "interestReason": "",
+    "postClosingSupport": "",
+    "recreationalPropertiesAnnually": ""
+  },
+  "verification": {},
+  "agreement": {
+    "acceptedTerms": false,
+    "acceptedPrivacy": false,
+    "certifiedAccurate": false
+  },
+  "emailVerified": false,
+  "createdAt": "2026-06-19T19:11:42.955Z",
+  "updatedAt": "2026-06-19T19:11:42.957Z",
+  "auditTrail": [
+    {
+      "action": "Application created",
+      "timestamp": "2026-06-19T19:11:42.956Z",
+      "actor": "applicant"
+    }
+  ]
+}

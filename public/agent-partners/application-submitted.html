@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Application Received · Valhaverly</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=14" />
+  <link rel="stylesheet" href="/partner-onboarding.css?v=3" />
+</head>
+<body class="po-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="logo">Valhaverly</a>
+      <nav class="nav"><a href="/agent-partners.html">Agent Partners</a></nav>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+  <main class="po-main">
+    <div class="po-status-page">
+      <div class="po-status-card">
+        <div class="po-status-icon po-status-icon--gold" aria-hidden="true">◈</div>
+        <span class="po-status-badge po-status-badge--pending">Pending Review</span>
+        <h1>Application Received</h1>
+        <p>Thank you for applying to become a Valhaverly Steward Partner. Our team will review your application and verification documents.</p>
+        <p>Most applications are reviewed within <strong>2–5 business days</strong>. You will receive an email when your status changes.</p>
+        <div class="po-status-meta">
+          <div class="po-status-row"><span>Status</span><span>Pending Review</span></div>
+          <div class="po-status-row"><span>Submitted</span><span id="submitted-date">—</span></div>
+        </div>
+        <div class="po-status-actions">
+          <a href="/agent-login" class="btn btn-gold">Partner Login</a>
+          <a href="/index.html" class="btn-outline-navy">Return Home</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/script.js?v=14"></script>
+  <script src="/partner-auth.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      var params = new URLSearchParams(location.search);
+      var id = params.get('id') || PartnerAuth.getApplicationId();
+      if (id) {
+        try {
+          var res = await fetch('/api/partner/applications/' + id);
+          var data = await res.json();
+          if (data.success && data.application.submittedAt) {
+            document.getElementById('submitted-date').textContent =
+              new Date(data.application.submittedAt).toLocaleDateString('en-CA', { dateStyle: 'long' });
+          }
+        } catch (_) {}
+      }
+    });
+  </script>
+</body>
+</html>

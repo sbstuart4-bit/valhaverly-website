@@ -1,0 +1,63 @@
+{
+  "id": "app_demo_david_miller",
+  "status": "Rejected",
+  "passwordHash": "a898fd09ff8c8625aeb6980fac0f2060557690e16db7cbbb2f63e9c38630ecd8",
+  "personal": {
+    "firstName": "David",
+    "lastName": "Miller",
+    "email": "david.miller@valhaverly.com",
+    "phone": "+1 (905) 555-0404",
+    "linkedIn": ""
+  },
+  "professional": {
+    "brokerageName": "Urban Property Partners",
+    "licenseNumber": "ON-1029384",
+    "provinceState": "Ontario",
+    "primaryMarket": "Toronto",
+    "specialties": [
+      "Luxury Properties"
+    ],
+    "yearsInRealEstate": "3",
+    "annualTransactions": "1–5"
+  },
+  "market": {
+    "primaryRegion": "Toronto",
+    "secondaryRegions": "",
+    "serviceRadius": "25 km"
+  },
+  "partnerFit": {
+    "interestReason": "Looking for referral income opportunities.",
+    "postClosingSupport": "Minimal follow-up after closing.",
+    "recreationalPropertiesAnnually": "0–1"
+  },
+  "verification": {},
+  "agreement": {
+    "acceptedTerms": true,
+    "acceptedPrivacy": true,
+    "certifiedAccurate": true,
+    "acceptedAt": "2026-06-19T19:03:45.667Z"
+  },
+  "auditTrail": [
+    {
+      "action": "Application created",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "applicant"
+    },
+    {
+      "action": "Application submitted",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "applicant"
+    },
+    {
+      "action": "Application rejected — insufficient recreational property focus",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "admin"
+    }
+  ],
+  "applicationDate": "2026-05-20",
+  "emailVerified": false,
+  "createdAt": "2026-05-18T08:00:00.000Z",
+  "updatedAt": "2026-06-19T19:03:45.667Z",
+  "submittedAt": "2026-05-20T10:00:00.000Z",
+  "reviewedAt": "2026-05-22T11:00:00.000Z"
+}

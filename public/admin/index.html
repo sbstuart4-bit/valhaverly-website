@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — Valhaverly</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=15" />
+  <link rel="stylesheet" href="/partner-onboarding.css?v=3" />
+  <link rel="stylesheet" href="/admin.css?v=1" />
+</head>
+<body class="adm-login-page">
+  <div class="adm-login-card">
+    <p class="eyebrow" style="text-align:center;color:var(--color-teal-muted);margin-bottom:0.5rem;">Internal</p>
+    <h1>Partner Admin Portal</h1>
+    <p class="adm-login-sub">Manage steward partner applications, onboarding, and communications.</p>
+
+    <form id="admin-login-form">
+      <div class="po-field" style="margin-bottom:1rem;">
+        <label for="email">Admin email</label>
+        <input id="email" type="email" required autocomplete="username" placeholder="admin@valhaverly.com" />
+      </div>
+      <div class="po-field" style="margin-bottom:1.25rem;">
+        <label for="password">Password</label>
+        <input id="password" type="password" required autocomplete="current-password" placeholder="Admin password" />
+      </div>
+      <p class="po-login-error" id="login-error" hidden role="alert"></p>
+      <button type="submit" class="btn btn-gold" style="width:100%;" id="login-btn">Sign In</button>
+    </form>
+
+    <div class="adm-demo-hint">
+      Demo credentials: <code>admin@valhaverly.com</code> / <code>Admin2025!</code><br>
+      Set <code>ADMIN_EMAIL</code> and <code>ADMIN_PASSWORD</code> in <code>.env.local</code> for production.
+    </div>
+  </div>
+
+  <script src="/admin.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      var session = await AdminAuth.getSession();
+      if (session.authenticated) {
+        window.location.replace('/admin/dashboard');
+        return;
+      }
+
+      document.getElementById('admin-login-form').addEventListener('submit', async function (e) {
+        e.preventDefault();
+        var btn = document.getElementById('login-btn');
+        var errEl = document.getElementById('login-error');
+        btn.disabled = true;
+        btn.textContent = 'Signing in…';
+        errEl.hidden = true;
+        try {
+          await AdminAuth.login(
+            document.getElementById('email').value.trim(),
+            document.getElementById('password').value
+          );
+          window.location.href = '/admin/dashboard';
+        } catch (err) {
+          errEl.textContent = err.message;
+          errEl.hidden = false;
+          btn.disabled = false;
+          btn.textContent = 'Sign In';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

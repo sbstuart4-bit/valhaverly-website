@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Partner Admin — Valhaverly</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=15" />
+  <link rel="stylesheet" href="/admin.css?v=1" />
+</head>
+<body class="adm-page">
+  <header class="adm-header">
+    <div class="adm-header-brand">
+      <a href="/index.html" class="logo">Valhaverly</a>
+      <span class="adm-header-badge">Partner Admin</span>
+    </div>
+    <div class="adm-header-actions">
+      <span class="adm-admin-name" id="admin-name"></span>
+      <button type="button" class="adm-btn-ghost" id="btn-logout">Sign Out</button>
+    </div>
+  </header>
+
+  <div class="adm-main">
+    <section class="adm-list-panel">
+      <div class="adm-toolbar">
+        <input type="search" class="adm-search" id="search" placeholder="Search by name, email, brokerage, partner ID…" />
+      </div>
+      <div class="adm-filters" id="filters"></div>
+      <div class="adm-table-wrap">
+        <table class="adm-table">
+          <thead>
+            <tr>
+              <th>Partner</th>
+              <th>Status</th>
+              <th>Market</th>
+              <th>Updated</th>
+            </tr>
+          </thead>
+          <tbody id="app-table">
+            <tr><td colspan="4" class="adm-loading">Loading applications…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <aside class="adm-detail-panel adm-detail-panel--empty" id="detail-panel">
+      <p>Select a partner to view details and take action.</p>
+    </aside>
+  </div>
+
+  <script src="/admin.js?v=1"></script>
+  <script>
+    (function () {
+      var currentFilter = 'all';
+      var selectedId = null;
+      var counts = {};
+      var searchTimer = null;
+
+      var FILTER_LABELS = {
+        all: 'All',
+        'Under Review': 'Under Review',
+        Submitted: 'Submitted',
+        Approved: 'Approved',
+        Suspended: 'Suspended',
+        Rejected: 'Rejected',
+        Draft: 'Draft',
+      };
+
+      document.addEventListener('DOMContentLoaded', init);
+
+      async function init() {
+        var admin = await AdminAuth.requireAuth();
+        if (!admin) return;
+        document.getElementById('admin-name').textContent = admin.name;
+        document.getElementById('btn-logout').addEventListener('click', function () { AdminAuth.logout(); });
+        document.getElementById('search').addEventListener('input', function () {
+          clearTimeout(searchTimer);
+          searchTimer = setTimeout(loadList, 300);
+        });
+        await loadList();
+      }
+
+      async function loadList() {
+        try {
+          var q = document.getElementById('search').value.trim();
+          var data = await AdminApi.list({ status: currentFilter, q: q });
+          counts = data.counts || {};
+          renderFilters();
+          renderTable(data.applications || []);
+        } catch (err) {
+          AdminUI.showToast(err.message, true);
+        }
+      }
+
+      function renderFilters() {
+        var el = document.getElementById('filters');
+        var keys = ['all', 'Under Review', 'Submitted', 'Approved', 'Suspended', 'Rejected', 'Draft'];
+        el.innerHTML = keys.map(function (key) {
+          var count = counts[key] || 0;
+          if (key === 'all') count = counts.all || 0;
+          return '<button type="button" class="adm-filter-btn' + (currentFilter === key ? ' active' : '') + '" data-filter="' + key + '">' +
+            AdminUI.escapeHtml(FILTER_LABELS[key] || key) + '<span class="count">(' + count + ')</span></button>';
+        }).join('');
+        el.querySelectorAll('.adm-filter-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            currentFilter = btn.dataset.filter;
+            loadList();
+          });
+        });
+      }
+
+      function renderTable(apps) {
+        var tbody = document.getElementById('app-table');
+        if (!apps.length) {
+          tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:2rem;color:#4a5568;">No applications found.</td></tr>';
+          return;
+        }
+        tbody.innerHTML = apps.map(function (app) {
+          var name = (app.firstName + ' ' + app.lastName).trim() || app.email || '—';
+          return '<tr data-id="' + AdminUI.escapeHtml(app.id) + '"' + (selectedId === app.id ? ' class="selected"' : '') + '>' +
+            '<td><strong>' + AdminUI.escapeHtml(name) + '</strong><br><span style="font-size:0.78rem;color:#4a5568;">' + AdminUI.escapeHtml(app.email) + '</span></td>' +
+            '<td><span class="' + AdminUI.statusClass(app.status) + '">' + AdminUI.escapeHtml(app.status) + '</span></td>' +
+            '<td>' + AdminUI.escapeHtml(app.primaryMarket || app.brokerageName || '—') + '</td>' +
+            '<td>' + AdminUI.formatDate(app.updatedAt) + '</td></tr>';
+        }).join('');
+        tbody.querySelectorAll('tr[data-id]').forEach(function (row) {
+          row.addEventListener('click', function () { selectApp(row.dataset.id); });
+        });
+      }
+
+      async function selectApp(id) {
+        selectedId = id;
+        document.querySelectorAll('.adm-table tr').forEach(function (r) {
+          r.classList.toggle('selected', r.dataset.id === id);
+        });
+        var panel = document.getElementById('detail-panel');
+        panel.classList.remove('adm-detail-panel--empty');
+        panel.classList.add('open');
+        panel.innerHTML = '<p class="adm-loading">Loading…</p>';
+        try {
+          var app = await AdminApi.get(id);
+          renderDetail(app);
+        } catch (err) {
+          panel.innerHTML = '<p style="color:#dc2626;">' + AdminUI.escapeHtml(err.message) + '</p>';
+        }
+      }
+
+      function renderDetail(app) {
+        var p = app.personal || {};
+        var pro = app.professional || {};
+        var mkt = app.market || {};
+        var fit = app.partnerFit || {};
+        var profile = app.partnerProfile;
+        var name = (p.firstName + ' ' + p.lastName).trim() || p.email;
+
+        var actions = '';
+        if (app.status === 'Under Review' || app.status === 'Submitted') {
+          actions += '<div class="adm-actions-row">' +
+            '<button class="adm-btn adm-btn--approve" data-action="approve">Approve &amp; Onboard</button>' +
+            '<button class="adm-btn adm-btn--reject" data-action="reject">Reject</button></div>' +
+            '<textarea class="adm-reason-input" id="action-reason" placeholder="Rejection reason (optional)…" rows="2"></textarea>';
+        }
+        if (app.status === 'Approved') {
+          actions += '<div class="adm-actions-row">' +
+            '<button class="adm-btn adm-btn--suspend" data-action="suspend">Offboard / Suspend</button></div>' +
+            '<textarea class="adm-reason-input" id="action-reason" placeholder="Suspension reason (optional)…" rows="2"></textarea>';
+        }
+        if (app.status === 'Suspended') {
+          actions += '<div class="adm-actions-row">' +
+            '<button class="adm-btn adm-btn--reinstate" data-action="reinstate">Reinstate Partner</button></div>';
+        }
+
+        var audit = (app.auditTrail || []).slice().reverse().map(function (entry) {
+          return '<li>' + AdminUI.escapeHtml(entry.action) +
+            (entry.actor ? ' <em>(' + AdminUI.escapeHtml(entry.actor) + ')</em>' : '') +
+            '<time>' + AdminUI.formatDate(entry.timestamp) + '</time></li>';
+        }).join('');
+
+        document.getElementById('detail-panel').innerHTML =
+          '<button type="button" class="adm-detail-close" id="detail-close">← Back to list</button>' +
+          '<div class="adm-detail-header">' +
+            '<span class="' + AdminUI.statusClass(app.status) + '">' + AdminUI.escapeHtml(app.status) + '</span>' +
+            '<h2>' + AdminUI.escapeHtml(name) + '</h2>' +
+            '<p class="adm-detail-email">' + AdminUI.escapeHtml(p.email) + '</p>' +
+          '</div>' +
+          '<div class="adm-detail-meta">' +
+            metaItem('Brokerage', pro.brokerageName) +
+            metaItem('License', pro.licenseNumber) +
+            metaItem('Market', pro.primaryMarket || mkt.primaryRegion) +
+            metaItem('Partner ID', profile ? profile.partnerId : '—') +
+            metaItem('Submitted', AdminUI.formatDate(app.submittedAt)) +
+            metaItem('Referral Code', profile ? profile.referralCode : '—') +
+          '</div>' +
+          (fit.interestReason ? section('Why Valhaverly', '<p>' + AdminUI.escapeHtml(fit.interestReason) + '</p>') : '') +
+          (pro.specialties && pro.specialties.length ? section('Specialties', '<p>' + pro.specialties.map(AdminUI.escapeHtml).join(', ') + '</p>') : '') +
+          section('Activity Log', '<ul class="adm-audit">' + (audit || '<li>No activity yet.</li>') + '</ul>') +
+          '<div class="adm-actions">' + actions +
+            '<label class="adm-checkbox-label"><input type="checkbox" id="send-email" checked> Send notification email</label>' +
+            '<div class="adm-actions-row" style="margin-top:0.75rem;">' +
+              '<button class="adm-btn adm-btn--email" data-action="email-received">Send: App Received</button>' +
+              '<button class="adm-btn adm-btn--outline" id="btn-custom-email">Custom Email</button>' +
+            '</div>' +
+            '<div id="custom-email-form" hidden>' +
+              '<textarea class="adm-email-body" id="custom-body" placeholder="Write your message…" rows="4"></textarea>' +
+              '<button class="adm-btn adm-btn--email" data-action="email-custom" style="margin-top:0.5rem;width:100%;">Send Custom Email</button>' +
+            '</div>' +
+          '</div>';
+
+        document.getElementById('detail-close').addEventListener('click', closeDetail);
+        document.getElementById('btn-custom-email').addEventListener('click', function () {
+          document.getElementById('custom-email-form').hidden = false;
+        });
+
+        document.querySelectorAll('[data-action]').forEach(function (btn) {
+          btn.addEventListener('click', function () { handleAction(app.id, btn.dataset.action); });
+        });
+      }
+
+      function metaItem(label, value) {
+        return '<div class="adm-meta-item"><label>' + AdminUI.escapeHtml(label) + '</label><span>' + AdminUI.escapeHtml(value || '—') + '</span></div>';
+      }
+
+      function section(title, html) {
+        return '<div class="adm-section"><h3>' + AdminUI.escapeHtml(title) + '</h3>' + html + '</div>';
+      }
+
+      function closeDetail() {
+        selectedId = null;
+        var panel = document.getElementById('detail-panel');
+        panel.classList.remove('open');
+        panel.classList.add('adm-detail-panel--empty');
+        panel.innerHTML = '<p>Select a partner to view details and take action.</p>';
+        document.querySelectorAll('.adm-table tr.selected').forEach(function (r) { r.classList.remove('selected'); });
+      }
+
+      async function handleAction(id, action) {
+        var sendEmail = document.getElementById('send-email') ? document.getElementById('send-email').checked : true;
+        var reasonEl = document.getElementById('action-reason');
+        var reason = reasonEl ? reasonEl.value.trim() : '';
+
+        try {
+          if (action === 'email-received') {
+            var result = await AdminApi.sendEmail(id, { template: 'application-received' });
+            AdminUI.showToast(result.email && result.email.devMode ? 'Email logged to server console (no RESEND_API_KEY)' : 'Email sent.');
+            return;
+          }
+          if (action === 'email-custom') {
+            var body = document.getElementById('custom-body').value.trim();
+            if (!body) { AdminUI.showToast('Enter a message first.', true); return; }
+            var custom = await AdminApi.sendEmail(id, { template: 'custom', body: body });
+            AdminUI.showToast(custom.email && custom.email.devMode ? 'Email logged to server console' : 'Custom email sent.');
+            return;
+          }
+
+          var labels = { approve: 'Approved', reject: 'Rejected', suspend: 'Suspended', reinstate: 'Reinstated' };
+          if (!confirm('Confirm: ' + (labels[action] || action) + ' this partner?')) return;
+
+          var data = await AdminApi.action(id, action, { reason: reason, sendEmail: sendEmail });
+          var emailNote = data.email && data.email.devMode ? ' (email logged to console)' : data.email && data.email.sent ? ' — email sent' : '';
+          AdminUI.showToast((labels[action] || 'Updated') + ' successfully' + emailNote);
+          await loadList();
+          if (data.application) renderDetail(data.application);
+        } catch (err) {
+          AdminUI.showToast(err.message, true);
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

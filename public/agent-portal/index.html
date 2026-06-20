@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0;url=/agent-portal/referrals" />
+  <title>Agent Portal — Valhaverly</title>
+  <script src="/partner-auth.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      var session = await PartnerAuth.requireApproved();
+      if (!session) return;
+      window.location.replace('/agent-portal/referrals');
+    });
+  </script>
+</head>
+<body></body>
+</html>

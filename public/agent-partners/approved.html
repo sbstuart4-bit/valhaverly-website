@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Welcome, Partner · Valhaverly</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css?v=14" />
+  <link rel="stylesheet" href="/partner-onboarding.css?v=3" />
+</head>
+<body class="po-page">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="/index.html" class="logo">Valhaverly</a>
+      <nav class="nav"><a href="/agent-portal/referrals">Dashboard</a></nav>
+      <button class="menu-toggle" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+  <main class="po-main">
+    <div class="po-status-page">
+      <div class="po-status-card">
+        <div class="po-status-icon po-status-icon--teal" aria-hidden="true">✓</div>
+        <span class="po-status-badge po-status-badge--approved">Partner Approved</span>
+        <h1>Welcome To The Steward Partner Network</h1>
+        <p>Your application has been approved. Your partner credentials and referral tools are ready.</p>
+        <ul class="po-approval-checklist">
+          <li>Partner Approved</li>
+          <li>Partner ID: <strong id="partner-id">—</strong></li>
+          <li>Referral Link Generated</li>
+          <li>QR Code Generated</li>
+          <li>Dashboard Access Enabled</li>
+        </ul>
+        <div class="po-qr-wrap"><img id="qr-image" src="" alt="Your referral QR code" /></div>
+        <div class="po-ref-code" id="referral-code">—</div>
+        <p style="font-size:0.85rem;color:var(--color-ink-soft);margin-bottom:1.5rem;word-break:break-all" id="referral-url">—</p>
+        <div class="po-status-actions">
+          <a href="/agent-portal/referrals" class="btn btn-gold">Go To Partner Dashboard</a>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="/script.js?v=14"></script>
+  <script src="/partner-auth.js?v=1"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async function () {
+      var session = await PartnerAuth.requireAuthenticated();
+      if (!session) return;
+
+      if (session.session.status !== 'Approved') {
+        PartnerAuth.redirectByStatus(session.session.status);
+        return;
+      }
+
+      var profile = session.application && session.application.partnerProfile;
+      var agent = session.agent;
+
+      if (profile) {
+        document.getElementById('partner-id').textContent = profile.partnerId;
+        document.getElementById('referral-code').textContent = profile.referralCode;
+        document.getElementById('referral-url').textContent = profile.referralUrl;
+        document.getElementById('qr-image').src =
+          'https://api.qrserver.com/v1/create-qr-code/?data=' +
+          encodeURIComponent(profile.referralUrl) + '&size=140x140&margin=4';
+      } else if (agent) {
+        document.getElementById('partner-id').textContent = agent.partnerId || '—';
+        document.getElementById('referral-code').textContent = agent.referralCode;
+        var url = agent.referralUrl || ('https://valhaverly.com/agent/' + agent.referralCode);
+        document.getElementById('referral-url').textContent = url;
+        document.getElementById('qr-image').src =
+          'https://api.qrserver.com/v1/create-qr-code/?data=' + encodeURIComponent(url) + '&size=140x140&margin=4';
+      }
+    });
+  </script>
+</body>
+</html>

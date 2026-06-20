@@ -1,0 +1,64 @@
+{
+  "id": "app_demo_amanda_chen",
+  "status": "Under Review",
+  "passwordHash": "a898fd09ff8c8625aeb6980fac0f2060557690e16db7cbbb2f63e9c38630ecd8",
+  "personal": {
+    "firstName": "Amanda",
+    "lastName": "Chen",
+    "email": "amanda.chen@valhaverly.com",
+    "phone": "+1 (613) 555-0303",
+    "linkedIn": ""
+  },
+  "professional": {
+    "brokerageName": "Kawartha Shoreline Group",
+    "licenseNumber": "ON-5829104",
+    "provinceState": "Ontario",
+    "primaryMarket": "Kawartha Lakes",
+    "specialties": [
+      "Cottage Properties",
+      "Cabins",
+      "Recreational Land"
+    ],
+    "yearsInRealEstate": "6",
+    "annualTransactions": "6–15"
+  },
+  "market": {
+    "primaryRegion": "Kawartha Lakes",
+    "secondaryRegions": "Prince Edward County",
+    "serviceRadius": "75 km"
+  },
+  "partnerFit": {
+    "interestReason": "Many of my buyers are families purchasing their first shared cottage.",
+    "postClosingSupport": "I host annual owner roundtables and share maintenance calendars.",
+    "recreationalPropertiesAnnually": "4–6"
+  },
+  "verification": {},
+  "agreement": {
+    "acceptedTerms": true,
+    "acceptedPrivacy": true,
+    "certifiedAccurate": true,
+    "acceptedAt": "2026-06-19T19:03:45.667Z"
+  },
+  "auditTrail": [
+    {
+      "action": "Application created",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "applicant"
+    },
+    {
+      "action": "Application submitted",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "applicant"
+    },
+    {
+      "action": "Application under review",
+      "timestamp": "2026-06-19T19:03:45.667Z",
+      "actor": "admin"
+    }
+  ],
+  "applicationDate": "2026-06-10",
+  "emailVerified": false,
+  "createdAt": "2026-06-08T12:00:00.000Z",
+  "updatedAt": "2026-06-19T19:03:45.667Z",
+  "submittedAt": "2026-06-10T09:00:00.000Z"
+}

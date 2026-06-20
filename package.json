@@ -3,10 +3,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:clean": "node -e \"require('fs').rmSync('.next',{recursive:true,force:true})\" && next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "db:seed": "node scripts/seed-partners.mjs",
+    "db:bootstrap": "node scripts/bootstrap.mjs"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.108.2",
     "next": "^15.3.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
