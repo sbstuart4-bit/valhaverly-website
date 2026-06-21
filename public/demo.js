@@ -2,12 +2,19 @@
   'use strict';
 
   /**
-   * Add Supademo embed URLs here when ready.
+   * Supademo popup IDs (Supademo.open) — preferred for interactive walkthroughs.
+   * Keys: full, owner, member, expenses, legacy, ch1–ch6
+   */
+  var DEMO_POPUP_IDS = {
+    owner: 'cmqnwkr2s1m5oqms4wurwq74x',
+  };
+
+  /**
+   * Supademo inline embed URLs (iframe fallback).
    * Keys: full, owner, member, expenses, legacy, ch1–ch6
    */
   var DEMO_URLS = {
     full: '',
-    owner: '',
     member: '',
     expenses: '',
     legacy: '',
@@ -28,6 +35,12 @@
   var closeBtn = document.getElementById('demo-modal-close');
 
   function openDemo(key, title) {
+    var popupId = DEMO_POPUP_IDS[key];
+    if (popupId && window.Supademo && typeof window.Supademo.open === 'function') {
+      window.Supademo.open(popupId);
+      return;
+    }
+
     var url = DEMO_URLS[key] || '';
     titleEl.textContent = title;
 
