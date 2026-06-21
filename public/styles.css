@@ -139,6 +139,8 @@ h3 {
 .btn-sm {
   padding: 0.55rem 1.2rem;
   font-size: 0.875rem;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 /* Signup form */
@@ -211,24 +213,32 @@ h3 {
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  gap: 1.5rem;
+  width: min(1440px, calc(100% - 3rem));
 }
 
 .logo {
   font-family: var(--font-serif);
   font-size: 1.5rem;
   color: var(--color-white);
+  flex-shrink: 0;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  flex-wrap: nowrap;
+  gap: clamp(1rem, 1.6vw, 1.75rem);
+  flex-shrink: 0;
+  margin-left: auto;
 }
 
 .nav a:not(.btn) {
-  font-size: 0.9rem;
+  font-size: 0.875rem;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: color 0.2s;
 }
 
@@ -1524,6 +1534,44 @@ h3 {
   }
 }
 
+@media (max-width: 900px) {
+  .nav {
+    display: none;
+    position: fixed;
+    top: var(--header-h);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--color-navy-deep);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 1rem;
+    margin-left: 0;
+  }
+
+  .nav.open {
+    display: flex;
+  }
+
+  .nav a {
+    padding: 0.75rem 0;
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .menu-toggle[aria-expanded="true"] span:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+
+  .menu-toggle[aria-expanded="true"] span:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+}
+
 @media (max-width: 720px) {
   .signup-row {
     flex-direction: column;
@@ -1555,40 +1603,6 @@ h3 {
 
   .protect-feature {
     height: 280px;
-  }
-
-  .nav {
-    display: none;
-    position: fixed;
-    top: var(--header-h);
-    left: 0;
-    right: 0;
-    flex-direction: column;
-    gap: 0;
-    background: var(--color-navy-deep);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    padding: 1rem;
-  }
-
-  .nav.open {
-    display: flex;
-  }
-
-  .nav a {
-    padding: 0.75rem 0;
-    width: 100%;
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
-
-  .menu-toggle[aria-expanded="true"] span:first-child {
-    transform: translateY(4px) rotate(45deg);
-  }
-
-  .menu-toggle[aria-expanded="true"] span:last-child {
-    transform: translateY(-4px) rotate(-45deg);
   }
 
   .why-points {
