@@ -2,5 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nextjs",
   "buildCommand": null,
-  "installCommand": null
+  "installCommand": null,
+  "build": {
+    "env": {
+      "NPM_CONFIG_SCRIPT_SHELL": "/bin/sh"
+    }
+  }
 }
