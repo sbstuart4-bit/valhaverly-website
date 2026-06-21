@@ -2,6 +2,11 @@ import { mkdir, readFile, readdir, writeFile } from 'fs/promises';
 import path from 'path';
 import type { ApplicationSummary } from '@/lib/admin/types';
 import { toApplicationSummary } from './admin-actions';
+import {
+  partnerApplicationsDir,
+  partnerMetaFile,
+  partnerUploadsDir,
+} from './paths';
 import { getDemoApplications } from './seed-data';
 import type { AuditEntry, PartnerApplication, PartnerStatus } from './types';
 import {
@@ -12,22 +17,20 @@ import {
   getDemoPasswordHash,
 } from './utils';
 
-const DATA_DIR = path.join(process.cwd(), 'data', 'partner-applications');
-const UPLOADS_DIR = path.join(process.cwd(), 'data', 'partner-uploads');
-const META_FILE = path.join(process.cwd(), 'data', 'partner-meta.json');
-
 function audit(action: string, actor = 'system'): AuditEntry {
   return { action, timestamp: new Date().toISOString(), actor };
 }
 
 async function ensureDirs() {
-  await mkdir(DATA_DIR, { recursive: true });
-  await mkdir(UPLOADS_DIR, { recursive: true });
+  const dataDir = partnerApplicationsDir();
+  const uploadsDir = partnerUploadsDir();
+  await mkdir(dataDir, { recursive: true });
+  await mkdir(uploadsDir, { recursive: true });
 }
 
 async function readMeta(): Promise<{ nextPartnerSequence: number }> {
   try {
-    const raw = await readFile(META_FILE, 'utf8');
+    const raw = await readFile(partnerMetaFile(), 'utf8');
     return JSON.parse(raw);
   } catch {
     return { nextPartnerSequence: 3 };
@@ -35,11 +38,11 @@ async function readMeta(): Promise<{ nextPartnerSequence: number }> {
 }
 
 async function writeMeta(meta: { nextPartnerSequence: number }) {
-  await writeFile(META_FILE, JSON.stringify(meta, null, 2), 'utf8');
+  await writeFile(partnerMetaFile(), JSON.stringify(meta, null, 2), 'utf8');
 }
 
 function applicationPath(id: string) {
-  return path.join(DATA_DIR, `${id}.json`);
+  return path.join(partnerApplicationsDir(), `${id}.json`);
 }
 
 export async function listApplicationsFile(options?: {
@@ -48,13 +51,14 @@ export async function listApplicationsFile(options?: {
 }): Promise<ApplicationSummary[]> {
   await ensureDirs();
   await seedDemoApplicationsFile();
-  const files = await readdir(DATA_DIR);
+  const dataDir = partnerApplicationsDir();
+  const files = await readdir(dataDir);
   const apps: PartnerApplication[] = [];
 
   for (const file of files) {
     if (!file.endsWith('.json')) continue;
     try {
-      const app = JSON.parse(await readFile(path.join(DATA_DIR, file), 'utf8')) as PartnerApplication;
+      const app = JSON.parse(await readFile(path.join(dataDir, file), 'utf8')) as PartnerApplication;
       apps.push(app);
     } catch {
       // skip corrupt files
@@ -107,10 +111,11 @@ export async function getApplicationByEmailFile(
   await ensureDirs();
   await seedDemoApplicationsFile();
   const normalized = email.trim().toLowerCase();
-  const files = await readdir(DATA_DIR);
+  const dataDir = partnerApplicationsDir();
+  const files = await readdir(dataDir);
   for (const file of files) {
     if (!file.endsWith('.json')) continue;
-    const app = JSON.parse(await readFile(path.join(DATA_DIR, file), 'utf8')) as PartnerApplication;
+    const app = JSON.parse(await readFile(path.join(dataDir, file), 'utf8')) as PartnerApplication;
     if (app.personal.email.toLowerCase() === normalized) return app;
   }
   return null;
@@ -175,12 +180,13 @@ export async function approveApplicationFile(id: string): Promise<PartnerApplica
 }
 
 export function getUploadsDir(applicationId: string) {
-  return path.join(UPLOADS_DIR, applicationId);
+  return path.join(partnerUploadsDir(), applicationId);
 }
 
 export async function seedDemoApplicationsFile() {
   await ensureDirs();
-  const marker = path.join(DATA_DIR, '.seeded');
+  const dataDir = partnerApplicationsDir();
+  const marker = path.join(dataDir, '.seeded');
   try {
     await readFile(marker, 'utf8');
     return;

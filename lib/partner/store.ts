@@ -1,5 +1,6 @@
 import { getSupabaseAdmin, isSupabaseConfigured } from '@/lib/supabase/server';
 import type { PartnerApplication } from './types';
+import { isServerlessEnv } from './paths';
 import {
   approveApplicationFile,
   createApplicationFile,
@@ -31,6 +32,10 @@ let supabaseReady: boolean | null = null;
 
 async function shouldUseSupabase(): Promise<boolean> {
   if (!isSupabaseConfigured()) return false;
+
+  // Never fall back to local disk in serverless — filesystem is read-only or ephemeral.
+  if (isServerlessEnv()) return true;
+
   if (supabaseReady === true) return true;
   if (supabaseReady === false) return false;
 
@@ -111,6 +116,13 @@ export async function uploadVerificationFile(
   if (await shouldUseSupabase()) {
     return uploadVerificationFileSupabase(applicationId, field, file);
   }
+
+  if (isServerlessEnv()) {
+    throw new Error(
+      'Document uploads require Supabase in production. Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY in Vercel, run supabase/schema.sql, and create the partner-verification storage bucket.',
+    );
+  }
+
   return uploadVerificationFileLocal(applicationId, field, file);
 }
 
