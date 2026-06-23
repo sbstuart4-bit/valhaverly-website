@@ -8,3 +8,6 @@ desktop.ini
 node_modules/
 .next/
 .data/
+_fairness_demo_extract/
+tsconfig.tsbuildinfo
+test-upload.png
