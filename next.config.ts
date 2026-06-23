@@ -9,6 +9,7 @@ const htmlPages = [
   'hero-mockup',
   'agent-login',
   'agent-partners',
+  'commons',
 ];
 
 const partnerOnboardingPages = [

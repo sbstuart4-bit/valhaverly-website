@@ -255,6 +255,15 @@ h3 {
   color: var(--color-gold-hover);
 }
 
+.nav a.nav-fairness {
+  color: var(--color-teal-muted);
+  font-weight: 600;
+}
+
+.nav a.nav-fairness:hover {
+  color: var(--color-teal);
+}
+
 .menu-toggle {
   display: none;
   flex-direction: column;
@@ -1092,6 +1101,51 @@ h3 {
   margin-bottom: 2rem;
 }
 
+/* Commons promo (homepage) */
+.commons-promo-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: center;
+}
+
+.commons-promo-copy .eyebrow {
+  color: var(--color-gold);
+}
+
+.commons-promo-copy h2 {
+  color: var(--color-white);
+}
+
+.commons-promo-copy .section-lead {
+  color: rgba(255, 255, 255, 0.65);
+  max-width: 52ch;
+}
+
+.commons-promo-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.commons-promo-points li {
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.45;
+}
+
+.commons-promo-points li::before {
+  content: '◈';
+  color: var(--color-gold);
+  margin-right: 0.55rem;
+  font-size: 0.65rem;
+}
+
 /* Legal pages */
 .legal-page {
   background: var(--color-cream);
@@ -1522,6 +1576,10 @@ h3 {
   .reality-grid,
   .steps-grid,
   .why-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .commons-promo-layout {
     grid-template-columns: 1fr;
   }
 

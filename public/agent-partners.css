@@ -443,6 +443,15 @@
   flex-shrink: 0;
 }
 
+.ap-receive-item a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.ap-receive-item a:hover {
+  color: var(--color-teal);
+}
+
 /* FAQ */
 .ap-faq {
   max-width: 720px;
