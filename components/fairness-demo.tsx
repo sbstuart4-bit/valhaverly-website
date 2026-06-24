@@ -427,8 +427,17 @@ function Step5() {
 export default function FairnessDemo() {
   const [step, setStep] = useState(0)
   const storyRef = useRef<HTMLDivElement>(null)
+  const storyAnchorRef = useRef<HTMLDivElement>(null)
   const pillRefs = useRef<(HTMLButtonElement | null)[]>([])
   const TOTAL = 6
+
+  const scrollToStory = () => {
+    const el = storyAnchorRef.current
+    if (!el) return
+    const headerOffset = 88
+    const top = el.getBoundingClientRect().top + window.scrollY - headerOffset
+    window.scrollTo({ top: Math.max(0, top), behavior: 'smooth' })
+  }
 
   const steps = [
     { title: 'The Circle',    icon: '◈', content: <Step0 /> },
@@ -441,7 +450,6 @@ export default function FairnessDemo() {
 
   const goTo = (i: number) => {
     setStep(i)
-    setTimeout(() => storyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
   }
 
   useEffect(() => {
@@ -475,7 +483,7 @@ export default function FairnessDemo() {
               <button
                 type="button"
                 className="btn btn-gold"
-                onClick={() => storyRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={scrollToStory}
               >
                 See It Happen →
               </button>
@@ -483,20 +491,12 @@ export default function FairnessDemo() {
             </div>
           </div>
         </div>
-        <a
-          href="#fairness-story"
-          className="scroll-hint"
-          onClick={(e) => {
-            e.preventDefault()
-            storyRef.current?.scrollIntoView({ behavior: 'smooth' })
-          }}
-        >
-          Scroll ↓
-        </a>
       </section>
 
       {/* @section: story */}
       <div id="fairness-story" ref={storyRef} className="fairness-story">
+
+        <div ref={storyAnchorRef} className="fairness-story-anchor" aria-hidden="true" />
 
         {/* Step pills — swipe sideways on narrow screens */}
         <div className="fair-step-pills" aria-label="Jump to step">

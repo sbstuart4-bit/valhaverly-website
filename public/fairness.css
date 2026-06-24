@@ -1,5 +1,61 @@
 /* Fairness demo — mobile & scroll polish */
 
+/* Hero → story seamless blend */
+.fairness-page .hero {
+  background: #0f0c09;
+}
+
+.fairness-page .hero-bg img {
+  mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 52%, transparent 100%);
+}
+
+.fairness-page .hero-overlay {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(15, 12, 9, 0.97) 0%,
+      rgba(15, 12, 9, 0.93) 22%,
+      rgba(15, 12, 9, 0.78) 42%,
+      rgba(15, 12, 9, 0.48) 62%,
+      rgba(15, 12, 9, 0.22) 82%,
+      rgba(15, 12, 9, 0.1) 100%
+    ),
+    linear-gradient(to top, rgba(15, 12, 9, 0.55) 0%, transparent 38%),
+    linear-gradient(to bottom, transparent 0%, rgba(15, 12, 9, 0.4) 55%, #0f0c09 100%);
+}
+
+.fairness-page .hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 42%;
+  z-index: 4;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(15, 12, 9, 0.55) 45%,
+    #0f0c09 100%
+  );
+}
+
+.fairness-story {
+  position: relative;
+  z-index: 5;
+  max-width: 880px;
+  margin: -3rem auto 0;
+  padding: 2.5rem 24px 80px;
+  scroll-margin-top: calc(var(--header-h, 72px) + 1rem);
+}
+
+.fairness-story-anchor {
+  height: 0;
+  scroll-margin-top: calc(var(--header-h, 72px) + 1rem);
+}
+
 .fair-step-pills {
   display: flex;
   gap: 6px;
@@ -36,12 +92,6 @@
   background: #f7b32f;
   color: #1a1208;
   border-color: #f7b32f;
-}
-
-.fairness-story {
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 64px 24px 80px;
 }
 
 .fairness-nav {
@@ -130,7 +180,8 @@
   }
 
   .fairness-story {
-    padding: 40px 20px 64px;
+    margin-top: -2rem;
+    padding: 2rem 20px 64px;
   }
 
   .fairness-page .hero h1 {

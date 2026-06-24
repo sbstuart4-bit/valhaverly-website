@@ -563,6 +563,24 @@ h3 {
   background-image: url("assets/bg-platform.png");
 }
 
+.commons-promo.section--parallax {
+  background-image: url("assets/commons-promo-bg.jpeg");
+  background-position: center 58%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.section-overlay--commons {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(8, 12, 24, 0.9) 0%,
+      rgba(8, 12, 24, 0.82) 45%,
+      rgba(8, 12, 24, 0.88) 100%
+    );
+}
+
 .section-overlay {
   position: absolute;
   inset: 0;
@@ -1035,10 +1053,38 @@ h3 {
   overflow: hidden;
 }
 
-.why-image img {
+.why-image:not(.why-image--polaroid) img {
   width: 100%;
   height: 520px;
   object-fit: cover;
+}
+
+.why-image--polaroid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 520px;
+  padding: 1rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+.why-polaroid-frame {
+  margin: 0;
+  width: min(440px, 100%);
+  transform: rotate(-3deg);
+  box-shadow:
+    0 3px 8px rgba(0, 0, 0, 0.1),
+    0 16px 32px rgba(26, 34, 56, 0.22);
+}
+
+.why-polaroid-frame img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  filter: brightness(1.06) contrast(1.06) saturate(1.1);
 }
 
 .why-content > p {
@@ -1120,6 +1166,11 @@ h3 {
 .commons-promo-copy .section-lead {
   color: rgba(255, 255, 255, 0.65);
   max-width: 52ch;
+  margin-bottom: 0.25rem;
+}
+
+.commons-promo-copy .btn {
+  margin-top: 2.25rem;
 }
 
 .commons-promo-points {
@@ -1587,8 +1638,17 @@ h3 {
     grid-template-columns: 1fr;
   }
 
-  .why-image img {
+  .why-image:not(.why-image--polaroid) img {
     height: 320px;
+  }
+
+  .why-image--polaroid {
+    min-height: 360px;
+    padding: 1.5rem;
+  }
+
+  .why-polaroid-frame {
+    width: min(340px, 92vw);
   }
 }
 

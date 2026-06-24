@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css?v=25" />
+  <link rel="stylesheet" href="styles.css?v=41" />
 </head>
 <body>
   <header class="site-header">
@@ -364,17 +364,20 @@
           </article>
 
           <article class="price-card">
-            <h3>Estate</h3>
-            <p class="price"><span class="price-amount">Custom</span></p>
-            <p class="price-meta">Unlimited members</p>
+            <h3>Commons</h3>
+            <p class="price"><span class="price-amount">$99</span><span class="price-period">/ mo</span></p>
+            <p class="price-meta">The Trusted Property Network</p>
             <ul>
-              <li>White-labeling</li>
-              <li>Custom governance rules</li>
-              <li>Family office reporting</li>
-              <li>Legal document integration</li>
-              <li>Dedicated onboarding</li>
+              <li>Everything in Legacy</li>
+              <li>Valhaverly Commons access</li>
+              <li>Discover trusted family properties</li>
+              <li>Trust Passport &amp; reputation system</li>
+              <li>Cross-circle booking requests</li>
+              <li>Reciprocal stay opportunities</li>
+              <li>Verified Circle matching</li>
+              <li>Priority network access</li>
             </ul>
-            <p class="price-footer">Family offices, estate planners, property syndicates</p>
+            <p class="price-footer">For families seeking extraordinary places through trusted relationships.</p>
           </article>
         </div>
 
@@ -386,8 +389,14 @@
     <section class="section why">
       <div class="container">
         <div class="why-layout">
-          <div class="why-image">
-            <img src="assets/bg-why.png" alt="Lakeside family retreat at sunset" loading="lazy" />
+          <div class="why-image why-image--polaroid">
+            <figure class="why-polaroid-frame">
+              <img
+                src="assets/why-polaroid.png"
+                alt="Father and son fishing at the family lake — a summer memory"
+                loading="lazy"
+              />
+            </figure>
           </div>
           <div class="why-content">
             <p class="eyebrow">Why Valhaverly</p>
@@ -419,8 +428,9 @@
     </section>
 
     <!-- Valhaverly Commons -->
-    <section id="commons" class="section commons-promo pricing">
-      <div class="container">
+    <section id="commons" class="section commons-promo pricing section--parallax">
+      <div class="section-overlay section-overlay--commons" aria-hidden="true"></div>
+      <div class="container section-inner">
         <div class="commons-promo-layout">
           <div class="commons-promo-copy">
             <p class="eyebrow">Valhaverly Commons</p>

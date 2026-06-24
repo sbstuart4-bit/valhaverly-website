@@ -17,7 +17,7 @@ export default function FairnessLayout({ children }: { children: React.ReactNode
         rel="stylesheet"
       />
       <link rel="stylesheet" href="/styles.css?v=25" />
-      <link rel="stylesheet" href="/fairness.css?v=2" />
+      <link rel="stylesheet" href="/fairness.css?v=5" />
       {children}
       <Script src="/script.js" strategy="afterInteractive" />
     </>
