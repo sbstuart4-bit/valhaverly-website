@@ -25,6 +25,11 @@
     linear-gradient(to bottom, transparent 0%, rgba(15, 12, 9, 0.4) 55%, #0f0c09 100%);
 }
 
+.fairness-page .hero h1 em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+
 .fairness-page .hero::after {
   content: '';
   position: absolute;

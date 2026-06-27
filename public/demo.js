@@ -6,7 +6,7 @@
    * Keys: full, owner, member, expenses, legacy, ch1–ch6
    */
   var DEMO_POPUP_IDS = {
-    owner: 'cmqnwkr2s1m5oqms4wurwq74x',
+    owner: 'cmqvllasy0ceaqmecp66mbd06',
   };
 
   /**
@@ -15,6 +15,7 @@
    */
   var DEMO_URLS = {
     full: '',
+    owner: 'https://app.supademo.com/demo/cmqvllasy0ceaqmecp66mbd06?utm_source=link',
     member: '',
     expenses: '',
     legacy: '',

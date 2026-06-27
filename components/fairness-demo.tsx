@@ -472,7 +472,7 @@ export default function FairnessDemo() {
             <h1>
               How fairness works
               <br />
-              in 60 seconds
+              <em>in 60 seconds</em>
             </h1>
             <p className="hero-lead">
               Sarah and James share Dossey Lake House with Claire and Lisa. Tokens decide who gets
