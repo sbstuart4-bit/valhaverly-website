@@ -7,6 +7,7 @@
    */
   var DEMO_POPUP_IDS = {
     owner: 'cmqvllasy0ceaqmecp66mbd06',
+    member: 'cmqx4m115164gqmecu9fhxm3i',
     expenses: 'cmqwjkk8n0xq4qmecom43t0m7',
   };
 
@@ -17,7 +18,7 @@
   var DEMO_URLS = {
     full: '',
     owner: 'https://app.supademo.com/demo/cmqvllasy0ceaqmecp66mbd06?utm_source=link',
-    member: '',
+    member: 'https://app.supademo.com/demo/cmqx4m115164gqmecu9fhxm3i?utm_source=link',
     expenses: 'https://app.supademo.com/demo/cmqwjkk8n0xq4qmecom43t0m7?utm_source=link',
     legacy: '',
     ch1: '',
